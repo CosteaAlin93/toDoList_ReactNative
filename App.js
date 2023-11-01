@@ -9,10 +9,10 @@ import Task from './components/Task';
 
 export default function App() {
   //   state for new goals
-  const [newGoals, setNewGoals] = useState([{ text: 2, id: 3 }]);
+  const [newGoals, setNewGoals] = useState([]);
 
   //   state for done goals
-  const [doneGoals, setDoneGoals] = useState([{ text: 3, id: 4 }]);
+  const [doneGoals, setDoneGoals] = useState([]);
 
   function addNewGoal(enteredText) {
     setNewGoals((newGoals) => [...newGoals, { text: enteredText, id: Math.random().toString() }]);
@@ -105,10 +105,11 @@ const styles = StyleSheet.create({
   },
   header: {
     backgroundColor: COLORS.background,
-    color: COLORS.primary,
+    color: COLORS.accent,
     paddingVertical: SIZES.xxxLarge,
-    paddingHorizontal: SIZES.medium,
+    paddingHorizontal: SIZES.small,
     fontSize: SIZES.large,
+    fontWeight: 'bold',
   },
   taskNew: {
     flex: 5,
@@ -116,8 +117,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: SIZES.medium,
   },
   taskNew__text: {
-    color: COLORS.primary,
-    fontSize: SIZES.medium,
+    color: COLORS.accent,
+    fontSize: SIZES.large,
   },
   taskDone: {
     flex: 2,
@@ -125,8 +126,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: SIZES.medium,
   },
   taskDone__text: {
-    color: COLORS.primary,
-    fontSize: SIZES.medium,
+    color: COLORS.accent,
+    fontSize: SIZES.large,
   },
 
   taskInput: {
