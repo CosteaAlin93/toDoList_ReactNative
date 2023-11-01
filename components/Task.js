@@ -4,7 +4,13 @@ import { FontAwesome, Feather, EvilIcons, COLORS, SHADOWS, SIZES } from '../cons
 const Task = (props) => {
   return (
     <View style={styles.task}>
-      <View>
+      <View style={styles.task__left}>
+        <Feather
+          name="check-circle"
+          size={20}
+          color={COLORS.accent}
+          onPress={props.onDone.bind(this.id, props.id)}
+        />
         <Text style={styles.task__text}> {props.text} </Text>
       </View>
       <View>
@@ -28,6 +34,10 @@ const styles = StyleSheet.create({
     paddingVertical: SIZES.xSmall,
     paddingHorizontal: SIZES.xSmall,
     borderRadius: SIZES.small,
+  },
+  task__left: {
+    flexDirection: 'row',
+    gap: SIZES.small,
   },
   task__text: {
     color: COLORS.white,

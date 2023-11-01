@@ -11,12 +11,29 @@ export default function App() {
   //   state for new goals
   const [newGoals, setNewGoals] = useState([{ text: 2, id: 3 }]);
 
+  //   state for done goals
+  const [doneGoals, setDoneGoals] = useState([{ text: 3, id: 4 }]);
+
   function addNewGoal(enteredText) {
     setNewGoals((newGoals) => [...newGoals, { text: enteredText, id: Math.random().toString() }]);
   }
 
   function deleteNewGoal(id) {
     setNewGoals((newGoals) => newGoals.filter((task) => task.id !== id));
+  }
+
+  function addDoneGoal(id) {
+    const doneGoal = newGoals.find((goal) => goal.id === id);
+    console.log(doneGoal);
+
+    if (doneGoal) {
+      setNewGoals((newGoals) => newGoals.filter((task) => task.id !== id));
+    }
+    setDoneGoals((currentDoneGoals) => [...currentDoneGoals, doneGoal]);
+  }
+
+  function deleteDoneGoal(id) {
+    setDoneGoals((doneGoals) => doneGoals.filter((task) => task.id !== id));
   }
 
   return (
@@ -35,7 +52,14 @@ export default function App() {
           <FlatList
             data={newGoals}
             renderItem={(itemData) => {
-              return <Task id={itemData.item.id} text={itemData.item.text} onDelete={deleteNewGoal} />;
+              return (
+                <Task
+                  id={itemData.item.id}
+                  text={itemData.item.text}
+                  onDelete={deleteNewGoal}
+                  onDone={addDoneGoal}
+                />
+              );
             }}
             keyExtractor={(item) => item.id.toString()}
           />
@@ -44,7 +68,25 @@ export default function App() {
 
       {/* Done Goals View */}
       <View style={styles.taskDone}>
-        <Text style={styles.taskDone__text}>Done Goals</Text>
+        <View>
+          <Text style={styles.taskDone__text}>Done Goals</Text>
+        </View>
+        <View>
+          <FlatList
+            data={doneGoals}
+            renderItem={(itemData) => {
+              return (
+                <Task
+                  id={itemData.item.id}
+                  text={itemData.item.text}
+                  onDelete={deleteDoneGoal}
+                  onDone={addDoneGoal}
+                />
+              );
+            }}
+            keyExtractor={(item) => item.id.toString()}
+          />
+        </View>
       </View>
 
       {/* Goal Input */}
@@ -78,7 +120,7 @@ const styles = StyleSheet.create({
     fontSize: SIZES.medium,
   },
   taskDone: {
-    flex: 1,
+    flex: 2,
     backgroundColor: COLORS.background,
     paddingHorizontal: SIZES.medium,
   },
