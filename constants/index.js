@@ -1,4 +1,4 @@
-import FontAwesome from './icons';
+import { FontAwesome, Feather, EvilIcons } from './icons';
 import { COLORS, SIZES, SHADOWS } from './theme';
 
-export { FontAwesome, COLORS, SHADOWS, SIZES };
+export { FontAwesome, Feather, EvilIcons, COLORS, SHADOWS, SIZES };

@@ -1,3 +1,3 @@
-import { FontAwesome } from '@expo/vector-icons';
+import { FontAwesome, Feather, EvilIcons } from '@expo/vector-icons';
 
-export default FontAwesome;
+export { FontAwesome, Feather, EvilIcons };

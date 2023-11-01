@@ -1,10 +1,20 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-import { FontAwesome, COLORS, SHADOWS, SIZES } from './constants/index';
+import { FlatList, StyleSheet, Text, View } from 'react-native';
+import { FontAwesome, Feather, EvilIcons, COLORS, SHADOWS, SIZES } from './constants/index';
+
+import { useState } from 'react';
 
 import GoalInput from './components/Input';
+import Task from './components/Task';
 
 export default function App() {
+  //   state for new goals
+  const [newGoals, setNewGoals] = useState([{ text: 2, id: 3 }]);
+
+  function addNewGoal(enteredText) {
+    setNewGoals((newGoals) => [...newGoals, { text: enteredText, id: Math.random().toString() }]);
+  }
+
   return (
     <View style={styles.layout}>
       <StatusBar style="light" />
@@ -14,7 +24,18 @@ export default function App() {
 
       {/* New Goals View */}
       <View style={styles.taskNew}>
-        <Text style={styles.taskNew__text}>New Goals</Text>
+        <View>
+          <Text style={styles.taskNew__text}>New Goals</Text>
+        </View>
+        <View>
+          <FlatList
+            data={newGoals}
+            renderItem={(itemData) => {
+              return <Task id={itemData.item.id} text={itemData.item.text} />;
+            }}
+            keyExtractor={(item) => item.id.toString()}
+          />
+        </View>
       </View>
 
       {/* Done Goals View */}
@@ -24,7 +45,7 @@ export default function App() {
 
       {/* Goal Input */}
       <View style={styles.taskInput}>
-        <GoalInput />
+        <GoalInput onAddGoal={addNewGoal} />
       </View>
     </View>
   );
@@ -37,7 +58,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   header: {
-    flex: 1,
     backgroundColor: COLORS.background,
     color: COLORS.primary,
     paddingVertical: SIZES.xxxLarge,
@@ -54,7 +74,7 @@ const styles = StyleSheet.create({
     fontSize: SIZES.medium,
   },
   taskDone: {
-    flex: 2,
+    flex: 1,
     backgroundColor: COLORS.background,
     paddingHorizontal: SIZES.medium,
   },
@@ -62,9 +82,11 @@ const styles = StyleSheet.create({
     color: COLORS.primary,
     fontSize: SIZES.medium,
   },
+
   taskInput: {
-    flex: 2,
+    paddingVertical: SIZES.large,
     backgroundColor: COLORS.background,
     paddingHorizontal: SIZES.medium,
+    justifyContent: 'center',
   },
 });
