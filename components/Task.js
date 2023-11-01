@@ -8,7 +8,12 @@ const Task = (props) => {
         <Text style={styles.task__text}> {props.text} </Text>
       </View>
       <View>
-        <Feather name="trash" size={24} color="black" />
+        <Feather
+          name="trash"
+          size={20}
+          color={COLORS.accent}
+          onPress={props.onDelete.bind(this.id, props.id)}
+        />
       </View>
     </View>
   );
@@ -19,7 +24,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     backgroundColor: COLORS.secondary,
-    marginVertical: SIZES.medium,
+    marginVertical: SIZES.xxSmall,
     paddingVertical: SIZES.xSmall,
     paddingHorizontal: SIZES.xSmall,
     borderRadius: SIZES.small,

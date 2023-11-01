@@ -15,6 +15,10 @@ export default function App() {
     setNewGoals((newGoals) => [...newGoals, { text: enteredText, id: Math.random().toString() }]);
   }
 
+  function deleteNewGoal(id) {
+    setNewGoals((newGoals) => newGoals.filter((task) => task.id !== id));
+  }
+
   return (
     <View style={styles.layout}>
       <StatusBar style="light" />
@@ -31,7 +35,7 @@ export default function App() {
           <FlatList
             data={newGoals}
             renderItem={(itemData) => {
-              return <Task id={itemData.item.id} text={itemData.item.text} />;
+              return <Task id={itemData.item.id} text={itemData.item.text} onDelete={deleteNewGoal} />;
             }}
             keyExtractor={(item) => item.id.toString()}
           />

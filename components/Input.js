@@ -1,4 +1,4 @@
-import { View, TextInput, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, TextInput, Text, TouchableOpacity, StyleSheet, Keyboard } from 'react-native';
 import { FontAwesome, Feather, EvilIcons, COLORS, SHADOWS, SIZES } from '../constants/index';
 
 import { useState } from 'react';
@@ -12,6 +12,8 @@ const GoalInput = (props) => {
   }
 
   function addNewGoal() {
+    // closes the keyboard after inputting a Goal
+    Keyboard.dismiss();
     props.onAddGoal(enteredText);
     setEnteredText('');
   }
