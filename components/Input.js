@@ -1,4 +1,13 @@
-import { View, TextInput, Text, TouchableOpacity, StyleSheet, Keyboard } from 'react-native';
+import {
+  View,
+  TextInput,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  Keyboard,
+  Alert,
+  Pressable,
+} from 'react-native';
 import { FontAwesome, Feather, EvilIcons, COLORS, SHADOWS, SIZES } from '../constants/index';
 
 import { useState } from 'react';
@@ -14,8 +23,22 @@ const GoalInput = (props) => {
   function addNewGoal() {
     // closes the keyboard after inputting a Goal
     Keyboard.dismiss();
-    props.onAddGoal(enteredText);
-    setEnteredText('');
+    if (!enteredText) {
+      Alert.alert(
+        'Empty Goal',
+        'doing nothing ain`t no good...',
+        [
+          {
+            text: 'Got it',
+            onPress: () => console.log('OK Pressed'),
+          },
+        ],
+        { cancelable: false } // Prevent dismissing the alert by tapping outside
+      );
+    } else {
+      props.onAddGoal(enteredText);
+      setEnteredText('');
+    }
   }
 
   return (
